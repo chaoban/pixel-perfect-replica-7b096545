@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { BadgeCheck, CalendarCheck, Search, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,20 +10,7 @@ import barber1 from "@/assets/barber-1.jpg";
 import barber2 from "@/assets/barber-2.jpg";
 import barber3 from "@/assets/barber-3.jpg";
 import barber4 from "@/assets/barber-4.jpg";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Barberly — Style with Confident Hair" },
-      { name: "description", content: "Discover verified barbers and stylists near you and book a slot in a few taps." },
-      { property: "og:title", content: "Barberly — Style with Confident Hair" },
-      { property: "og:description", content: "Discover verified barbers and stylists and book online." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Index,
-});
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 const FILTERS = ["All", "Cut", "Color", "Perm", "Beard"];
 const LOGOS = ["Maison Coupe", "THE FADE CO.", "Oak & Razor", "LUMIÈRE", "Gentry", "Studio Nord"];
@@ -40,7 +27,11 @@ const BARBERS: Barber[] = [
   { name: "Diego Ruiz", shop: "The Fade Co. · Songshan", image: barber4, services: ["Cut", "Color"], rating: 4.7, reviews: 131, from: 30 },
 ];
 
-function Index() {
+export default function Index() {
+  usePageMeta(
+    "Barberly — Style with Confident Hair",
+    "Discover verified barbers and stylists near you and book a slot in a few taps.",
+  );
   const [filter, setFilter] = useState("All");
   return (
     <div className="min-h-screen bg-background">

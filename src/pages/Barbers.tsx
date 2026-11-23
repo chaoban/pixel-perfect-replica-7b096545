@@ -1,30 +1,18 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Wordmark } from "@/components/Wordmark";
 import { useAuth } from "@/hooks/useAuth";
+import { usePageMeta } from "@/hooks/usePageMeta";
 
-export const Route = createFileRoute("/barbers")({
-  head: () => ({
-    meta: [
-      { title: "Barbers — Barberly" },
-      { name: "description", content: "Your Barberly home: browse barbers or manage your barber profile." },
-      { property: "og:title", content: "Barbers — Barberly" },
-      { property: "og:description", content: "Your Barberly home." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
-  component: BarbersPage,
-});
-
-function BarbersPage() {
+export default function BarbersPage() {
+  usePageMeta("Barbers — Barberly", "Your Barberly home: browse barbers or manage your barber profile.");
   const navigate = useNavigate();
   const { user, loading } = useAuth();
 
   useEffect(() => {
-    if (!loading && !user) navigate({ to: "/login" });
+    if (!loading && !user) navigate("/login");
   }, [loading, user, navigate]);
 
   if (!user) return <div className="min-h-screen bg-background" />;
@@ -32,7 +20,7 @@ function BarbersPage() {
 
   async function signOut() {
     await supabase.auth.signOut();
-    navigate({ to: "/" });
+    navigate("/");
   }
 
   return (

@@ -1,24 +1,30 @@
-# 理髮預約平台開發
+# 理髮預約平台 (Barberly)
 
-Implement exactly the screenshot and nothing else
+A Vite + React single-page app with client-side routing (react-router-dom) and Supabase auth.
 
-This project was built with [Lovable](https://lovable.dev).
+## Routes
 
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/0f5188a6-7192-408e-8743-b4951fc6ce2c).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+| Path | Page |
+| --- | --- |
+| `/` | Landing page |
+| `/login` | Sign in / sign up (Customer or Barber) |
+| `/barbers` | Signed-in home (redirects to `/login` when signed out) |
 
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+npm install
+npm run dev      # http://localhost:8080
+npm run build    # outputs dist/
+npm run preview
+npm test
 ```
+
+Environment variables (see `.env`): `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`.
+
+## Deploying to Vercel
+
+Framework preset: **Vite** · Build command: `npm run build` · Output directory: `dist`.
+
+`vercel.json` rewrites every path to `/index.html`, so deep links such as `/login`
+and `/barbers` are handled by the client-side router instead of returning 404.

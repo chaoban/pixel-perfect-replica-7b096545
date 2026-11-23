@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,24 +8,12 @@ import { Label } from "@/components/ui/label";
 import { Wordmark } from "@/components/Wordmark";
 import { useAuth } from "@/hooks/useAuth";
 import heroRight from "@/assets/hero-right.jpg";
-
-export const Route = createFileRoute("/login")({
-  head: () => ({
-    meta: [
-      { title: "Sign in — Barberly" },
-      { name: "description", content: "Sign in or create a Barberly account as a customer or barber." },
-      { property: "og:title", content: "Sign in — Barberly" },
-      { property: "og:description", content: "Sign in or create your Barberly account." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-    ],
-  }),
-  component: LoginPage,
-});
+import { usePageMeta } from "@/hooks/usePageMeta";
 
 type Role = "customer" | "shop";
 
-function LoginPage() {
+export default function LoginPage() {
+  usePageMeta("Sign in — Barberly", "Sign in or create a Barberly account as a customer or barber.");
   const navigate = useNavigate();
   const { user } = useAuth();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
@@ -35,7 +23,7 @@ function LoginPage() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (user) navigate({ to: "/barbers" });
+    if (user) navigate("/barbers");
   }, [user, navigate]);
 
   async function submit(e: React.FormEvent) {
@@ -54,7 +42,7 @@ function LoginPage() {
       toast.error(error.message);
       return;
     }
-    navigate({ to: "/barbers" });
+    navigate("/barbers");
   }
 
   return (
