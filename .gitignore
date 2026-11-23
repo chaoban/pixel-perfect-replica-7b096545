@@ -21,3 +21,8 @@ dist
 *.njsproj
 *.sln
 *.sw?
+
+# Local env files — never commit. Runtime values live in Vercel env vars.
+.env
+.env.*
+!.env.example
