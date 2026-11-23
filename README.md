@@ -20,7 +20,17 @@ npm run preview
 npm test
 ```
 
-Environment variables (see `.env`): `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`.
+## Backend
+
+Auth runs on our own Supabase project `baqyetqnolxuqzmxskpr` (Hair_booking_platform_001).
+The client (`src/integrations/supabase/client.ts`) is created once and reads only:
+
+| Variable | Value |
+| --- | --- |
+| `VITE_SUPABASE_URL` | `https://baqyetqnolxuqzmxskpr.supabase.co` |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | `sb_publishable_…` (browser-safe, RLS-gated; replaces the old anon key) |
+
+Set the same two variables in Vercel → Project → Settings → Environment Variables.
 
 ## Deploying to Vercel
 

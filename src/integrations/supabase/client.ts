@@ -27,8 +27,9 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
 
 function createSupabaseClient() {
   // Browser-only SPA: values are injected at build time by Vite from VITE_* env vars.
-  const SUPABASE_URL = import.meta.env["VITE_SUPABASE_URL"] as string | undefined;
-  const SUPABASE_PUBLISHABLE_KEY = import.meta.env["VITE_SUPABASE_PUBLISHABLE_KEY"] as string | undefined;
+  // Trim so stray leading/trailing spaces in .env or the Vercel dashboard don't break requests.
+  const SUPABASE_URL = (import.meta.env["VITE_SUPABASE_URL"] as string | undefined)?.trim();
+  const SUPABASE_PUBLISHABLE_KEY = (import.meta.env["VITE_SUPABASE_PUBLISHABLE_KEY"] as string | undefined)?.trim();
 
   if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
     const missing = [
